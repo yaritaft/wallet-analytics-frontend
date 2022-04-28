@@ -1,0 +1,69 @@
+.wallet {
+}
+
+.wallet {
+  display: flex;
+  gap: 1em;
+}
+
+.wallet-container .old-wallet {
+  background: #f2d8d9;
+  padding: 0.5em 0 0.5em 1em;
+  border-radius: 0.2em;
+  font-size: 1em;
+  font-weight: bolder;
+  margin: 1em 0;
+}
+
+.wallet .exchange-rate {
+  background-color: #f8f9fb;
+  width: 50%;
+  font-weight: bolder;
+  font-size: 1.5em;
+  height: 4em;
+  align-items: center;
+  padding: 0 0 0 1em;
+  border-radius: 0.2em;
+  border: 1px solid rgb(228, 228, 228);
+}
+.wallet .exchange-rate .accept-cancel-icons {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 0.1em 0;
+}
+
+.wallet .exchange-rate .edit-icon {
+  width: 12px;
+  display: flex;
+  margin-left: auto;
+  padding: 0.1em 0.5em;
+}
+
+.wallet .exchange-rate .tick-icon {
+  height: 15px;
+}
+
+.wallet .exchange-rate .cross-icon {
+  width: 12px;
+}
+
+.wallet .exchange-rate span {
+  width: 12px;
+  display: block;
+}
+
+.wallet .currency {
+  background-color: #f8f9fb;
+  width: 50%;
+  font-weight: bolder;
+  font-size: 1.5em;
+  height: 4em;
+  padding: 0 0 0 1em;
+  border-radius: 0.2em;
+  border: 1px solid rgb(228, 228, 228);
+}
+
+.wallet-container .wallet .exchange-rate .exchange-rate-amount {
+  margin: 0.5em;
+}

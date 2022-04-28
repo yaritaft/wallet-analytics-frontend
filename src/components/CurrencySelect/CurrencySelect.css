@@ -1,0 +1,11 @@
+.currency-select {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  background-color: white;
+  width: 10em;
+  margin: 1.1em 0;
+}
+
+.total-balance {
+  display: block;
+}

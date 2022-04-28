@@ -1,0 +1,42 @@
+.login {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.login .form {
+  border: 2px solid;
+  padding: 2em;
+  border-radius: 2em;
+}
+
+.login .form .header {
+  display: flex;
+  justify-content: center;
+}
+
+.login .form input {
+  display: block;
+  margin: 2em;
+  padding: 0.5em;
+}
+
+.login .error-message {
+  background: rgb(255, 167, 167);
+  padding: 0.5em;
+  margin: 1em;
+  border-radius: 0.3em;
+  text-align: center;
+}
+
+.login .form button {
+  margin: auto;
+  display: block;
+  border: 2px solid;
+  border-radius: 0.5em;
+  padding: 0.3em;
+  font-weight: bolder;
+}
