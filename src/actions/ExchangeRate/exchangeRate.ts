@@ -7,8 +7,13 @@ export interface ExchangeRate {
   ETHToEuro?: number | null;
 }
 
-export const setExchangeRate = async (
-  exchangeRate: ExchangeRate
+export interface ExchangeRateUpdate {
+  currency: "USD" | "EURO";
+  amount: number | null;
+}
+
+export const updateExchangeRate = async (
+  exchangeRate: ExchangeRateUpdate
 ): Promise<void> => {
   const token = getToken();
   if (token) {

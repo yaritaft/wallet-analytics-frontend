@@ -11,6 +11,7 @@ import "./Wallet.css";
 import {
   ExchangeRate,
   getCurrentExchangeRate,
+  updateExchangeRate,
 } from "../../actions/ExchangeRate/exchangeRate";
 
 import { useAsyncEffect } from "use-async-effect";
@@ -26,7 +27,7 @@ export const Wallet = () => {
     setEditMode(false);
   };
   const handleSave = () => {
-    // setExchangeRate({}); // TODO: TAKE FROM INPUT THE VALUE
+    // updateExchangeRate({currency, amount: ACAAAAA PONER EL VALOR}); // TODO: TAKE FROM INPUT THE VALUE
     setEditMode(false);
   };
   const handleEdit = () => {
