@@ -2,12 +2,21 @@ import { useCallback, useState } from "react";
 import { Credentials, login, register } from "../../actions/Login/login";
 import "./Login.css";
 
-export const Login = () => {
+interface Properties {
+  setToken: (value: string | null) => void;
+}
+
+export const Login = ({ setToken }: Properties) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const handleSubmit = useCallback(() => {
-    login({ username: user, password }, setError);
+    login({ username: user, password }, setError).then((token) => {
+      if (token) {
+        setToken(token);
+      }
+    });
+
     // TODO: REDIRECT TO WALLETS LANDING PAGE
   }, [user, password, setError]);
 

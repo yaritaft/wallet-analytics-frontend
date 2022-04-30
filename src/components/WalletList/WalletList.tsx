@@ -20,6 +20,8 @@ import { getWallets, WalletResponse } from "../../actions/Wallet/wallet";
 export const WalletList = () => {
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate>();
   const [wallets, setWallets] = useState<WalletResponse[]>([]);
+  const [deletionMode, setDeletionMode] = useState(false);
+  const [favoriteMode, setFavoriteMode] = useState(false);
 
   useAsyncEffect(async () => {
     // const currentExchangeRate = { ETHToEuro: 1.23, ETHToUSD: 4 };
@@ -31,13 +33,22 @@ export const WalletList = () => {
     // const currentExchangeRate = { ETHToEuro: 1.23, ETHToUSD: 4 };
     const wallets = await getWallets(); // TODO: ABOVE LINE REPLACE THIS
     setWallets(wallets);
-  }, [exchangeRates?.ETHToEuro, exchangeRates?.ETHToUSD]);
+  }, [
+    exchangeRates?.ETHToEuro,
+    exchangeRates?.ETHToUSD,
+    deletionMode,
+    favoriteMode,
+  ]);
 
   return (
     <div className="wallet-list">
       {exchangeRates &&
         wallets.map((wallet) => (
           <Wallet
+            deletionMode={deletionMode}
+            favoriteMode={favoriteMode}
+            setDeletionMode={setDeletionMode}
+            setFavoriteMode={setFavoriteMode}
             exchangeRates={exchangeRates}
             setExchangeRates={setExchangeRates}
             {...wallet}

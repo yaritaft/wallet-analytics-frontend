@@ -6,7 +6,11 @@ import { WalletList } from "../../components/WalletList/WalletList";
 import { useState } from "react";
 import { storeWallet } from "../../actions/Wallet/wallet";
 
-export const WalletMenu = () => {
+interface Properties {
+  setToken: (value: string | null) => void;
+}
+
+export const WalletMenu = ({ setToken }: Properties) => {
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
   const [newWallet, setNewWallet] = useState("");
   const openModal = () => {
@@ -42,7 +46,7 @@ export const WalletMenu = () => {
         </Popup>
       )}
       <button onClick={openModal}>Add Wallet</button>
-      <Logout />
+      <Logout setToken={setToken} />
       <WalletList />
     </div>
   );

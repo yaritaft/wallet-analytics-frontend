@@ -22,8 +22,15 @@ const Template: ComponentStory<typeof Wallet> = (args) => {
     ETHToEuro: 333,
   });
 
+  const [deletionMode, setDeletionMode] = useState(false);
+  const [favoriteMode, setFavoriteMode] = useState(false);
+
   return (
     <Wallet
+      deletionMode={deletionMode}
+      favoriteMode={favoriteMode}
+      setDeletionMode={setDeletionMode}
+      setFavoriteMode={setFavoriteMode}
       address={"1234"}
       dolarBalance={4444}
       euroBalance={55555}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ENVVARS } from "../../../envvars";
+import { ENVVARS } from "../../envvars";
 import { getToken } from "../Login/login";
 
 export interface WalletResponse {

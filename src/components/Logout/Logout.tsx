@@ -1,5 +1,10 @@
 import { logout } from "../../actions/Login/login";
 
-const handleLogout = async () => await logout();
+interface Properties {
+  setToken: (value: string | null) => void;
+}
 
-export const Logout = () => <button onClick={handleLogout}>Logout</button>;
+export const Logout = ({ setToken }: Properties) => {
+  const handleLogout = async () => await logout().then(() => setToken(null));
+  return <button onClick={handleLogout}>Logout</button>;
+};

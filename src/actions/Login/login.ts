@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ENVVARS } from "../../../envvars";
+import { ENVVARS } from "../../envvars";
 
 interface LoginPayload {
   token: string;
@@ -24,11 +24,12 @@ export const getToken = (): string | null => {
 export const login = async (
   credentials: Credentials,
   setError: (value: boolean) => void
-): Promise<void> => {
+): Promise<string | void> => {
   return await axios
     .post<string>(ENVVARS.BACKEND_API + "/login", credentials)
     .then((res) => {
       storeToken(res.data);
+      return res.data;
     })
     .catch((error) => {
       setError(true);

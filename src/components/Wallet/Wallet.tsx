@@ -15,6 +15,10 @@ import {
 import { removeWallet, setFavoriteWallet } from "../../actions/Wallet/wallet";
 
 interface Properties {
+  favoriteMode: boolean;
+  deletionMode: boolean;
+  setDeletionMode: (value: boolean) => void;
+  setFavoriteMode: (value: boolean) => void;
   address: string;
   old: boolean;
   favorite: boolean;
@@ -25,6 +29,10 @@ interface Properties {
 }
 
 export const Wallet = ({
+  favoriteMode,
+  deletionMode,
+  setDeletionMode,
+  setFavoriteMode,
   address,
   old,
   dolarBalance,
@@ -69,10 +77,12 @@ export const Wallet = ({
 
   const handleFavorite = () => {
     setFavoriteWallet(address);
+    setFavoriteMode(!favoriteMode);
   };
 
   const handleRemoveWallet = () => {
     removeWallet(address);
+    setDeletionMode(!deletionMode);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
