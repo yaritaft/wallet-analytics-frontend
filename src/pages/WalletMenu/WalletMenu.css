@@ -1,0 +1,24 @@
+.buttons {
+  display: flex;
+}
+
+.buttons .logout {
+  margin: 0 auto 0 0;
+}
+
+.buttons .add-wallet {
+  margin: 0 0 0 auto;
+}
+
+.add-new-wallet input {
+  margin: 3em auto;
+}
+
+.add-new-wallet button {
+  margin: 0.5em 4em;
+}
+
+.add-new-wallet {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,6 +1,6 @@
 import Popup from "react-modal";
 import { customStylesCreateEventPopUp } from "./customStylesPopUp";
-
+import "./WalletMenu.css";
 import { Logout } from "../../components/Logout/Logout";
 import { WalletList } from "../../components/WalletList/WalletList";
 import { useState } from "react";
@@ -34,19 +34,26 @@ export const WalletMenu = ({ setToken }: Properties) => {
           style={customStylesCreateEventPopUp}
           onRequestClose={closeModal}
         >
-          <input
-            type="text"
-            value={newWallet}
-            onChange={(e) => setNewWallet(e.target.value)}
-          />
-          <div>
-            <button onClick={closeModal}>Cancel</button>
-            <button onClick={addWallet}>Save</button>
+          <div className="add-new-wallet">
+            <h1>Add new wallet address</h1>
+            <input
+              type="text"
+              value={newWallet}
+              onChange={(e) => setNewWallet(e.target.value)}
+            />
+            <div className="buttons">
+              <button onClick={closeModal}>Cancel</button>
+              <button onClick={addWallet}>Save</button>
+            </div>
           </div>
         </Popup>
       )}
-      <button onClick={openModal}>Add Wallet</button>
-      <Logout setToken={setToken} />
+      <div className="buttons">
+        <Logout setToken={setToken} />
+        <button className="add-wallet" onClick={openModal}>
+          Add Wallet
+        </button>
+      </div>
       <WalletList />
     </div>
   );

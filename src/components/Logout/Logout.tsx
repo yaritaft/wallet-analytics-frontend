@@ -6,5 +6,9 @@ interface Properties {
 
 export const Logout = ({ setToken }: Properties) => {
   const handleLogout = async () => await logout().then(() => setToken(null));
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button className="logout" onClick={handleLogout}>
+      Logout
+    </button>
+  );
 };
