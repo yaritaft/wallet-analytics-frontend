@@ -12,6 +12,8 @@
 
 .add-new-wallet input {
   margin: 3em auto;
+  padding: 0.4em;
+  border-radius: 0.5em;
 }
 
 .add-new-wallet button {
