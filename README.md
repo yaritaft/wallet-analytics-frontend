@@ -32,14 +32,62 @@ Use redux/vuex if necessary. Please note: You can add things to the design if re
 
 ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics-nest/master/doc/ui-design2.png)
 
+# Solution
+
+## Design
+
+The design is two pages.
+
+Login page and wallets page.
+
+From Login page you can:
+
+- Login
+- Register new account
+
+From wallets page you can:
+
+- Set/Unset favorite wallet
+- Remove wallet
+- Add new wallet
+- Logout
+- Change exchange rate
+- Change currency balance of one wallet.
+
+## Decisions
+
+- Use react. Because it is the most standard technology to do frontend nowadays and it works fine without having to refresh the whole page with every change.
+- Use hooks to handle state. Since no complex state had to be handled only hooks were used to work with states.
+- Use storybook. It brings a lot of isolation to create reusable components. And it makes the development faster.
+- Splitted the logic of the application from the visual design.
+- External requests were written in actions folder to decouple the app from external apps.
+- Typescript was used to improve the code quality, readeability and to avoid typing bugs.
+
+## Assumption
+
+- The sorting is first favorites wallets and then non favorite ones.
+
 ## Run App
 
 ```
+npm install
 npm start
 ```
 
 ## Run storybook
 
 ```
+npm install
 npm run storybook
 ```
+
+## Improvement areas
+
+- A request layer would be useful to decoupple requests from axios.
+- It would be nice to have a mono repo to share domain models since we are using Typescript end to end.
+- JSON Schema validators could have been used to improve error handling related to invalid requests. I.E using Yup.
+- Unit and integration testing to be able to test the app without the UI. Using jest, react testing library and cypress.
+- The styling can be improved by using more colors and more svgs.
+- A loading animation would be good when we wait for updates in the wallets. Since the get wallets endpoints has to do a lot of request to gather all the information needed.
+- A lot of logic can be separated from components by using custom hooks to preserve the distinction between visual ui and behavior.
+- Styled components can help a lot by providing css in js and avoiding css files. It also provides conditional styling to avoid complex class name assignments.
