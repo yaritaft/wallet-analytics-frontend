@@ -51,7 +51,7 @@ export const WalletMenu = ({ setToken }: Properties) => {
       <div className="buttons">
         <Logout setToken={setToken} />
         <button className="add-wallet" onClick={openModal}>
-          Add Wallet
+          +
         </button>
       </div>
       <WalletList />

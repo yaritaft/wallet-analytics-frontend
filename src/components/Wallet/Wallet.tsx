@@ -76,13 +76,11 @@ export const Wallet = ({
   };
 
   const handleFavorite = () => {
-    setFavoriteWallet(address);
-    setFavoriteMode(!favoriteMode);
+    setFavoriteWallet(address).then(() => setFavoriteMode(!favoriteMode));
   };
 
   const handleRemoveWallet = () => {
-    removeWallet(address);
-    setDeletionMode(!deletionMode);
+    removeWallet(address).then(() => setDeletionMode(!deletionMode));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,10 +91,8 @@ export const Wallet = ({
       <div className="wallet-header">
         <span>{`Address: ${address}`}</span>
         <div className="buttons">
-          <button onClick={handleRemoveWallet}>Remove</button>
-          <button onClick={handleFavorite}>
-            {favorite ? "Remove Favorite" : "Add Favorite"}
-          </button>
+          <button onClick={handleRemoveWallet}>✖</button>
+          <button onClick={handleFavorite}>{favorite ? "★" : "☆"}</button>
         </div>
       </div>
       {old && <div className="old-wallet">⚠ Wallet is old!</div>}
