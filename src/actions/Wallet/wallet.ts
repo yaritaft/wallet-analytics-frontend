@@ -2,29 +2,31 @@ import axios from "axios";
 import { ENVVARS } from "../../../envvars";
 import { getToken } from "../Login/login";
 
-export interface Wallet {
+export interface WalletResponse {
+  euroBalance: number;
+  dolarBalance: number;
+  account: string;
+  balance: number;
   old: boolean;
-  favorite: boolean;
   address: string;
-  eth: number;
-  usd: number;
-  euro: number;
+  favorite: boolean;
 }
 
 interface Wallets {
-  wallets: Wallet[];
+  wallets: WalletResponse[];
 }
 
-export const getWallets = async (): Promise<Wallet[] | undefined> => {
+export const getWallets = async (): Promise<WalletResponse[]> => {
   const token = getToken();
-  if (token) {
-    const wallets = await axios
-      .get<Wallets>(ENVVARS.BACKEND_API + "/wallets", { headers: { token } })
-      .then((res) => {
-        return res.data.wallets;
-      });
-    return wallets;
+  if (!token) {
+    throw new Error("No token stored in session.");
   }
+  const wallets = await axios
+    .get<Wallets>(ENVVARS.BACKEND_API + "/wallets", { headers: { token } })
+    .then((res) => {
+      return res.data.wallets;
+    });
+  return wallets;
 };
 
 export const storeWallet = async (address: string): Promise<void> => {
@@ -45,7 +47,24 @@ export const setFavoriteWallet = async (address: string): Promise<void> => {
   const token = getToken();
   if (token) {
     await axios
-      .patch(`${ENVVARS.BACKEND_API}/wallets/${address}/favorite`, {
+      .patch(
+        `${ENVVARS.BACKEND_API}/wallets/${address}/favorite`,
+        {},
+        {
+          headers: { token },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      });
+  }
+};
+
+export const removeWallet = async (address: string): Promise<void> => {
+  const token = getToken();
+  if (token) {
+    await axios
+      .delete(`${ENVVARS.BACKEND_API}/wallets/${address}`, {
         headers: { token },
       })
       .then((res) => {

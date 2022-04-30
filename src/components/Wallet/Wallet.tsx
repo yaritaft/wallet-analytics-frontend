@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CrossIcon } from "../../assets/svg/CrossIcon";
 import { EditIcon } from "../../assets/svg/EditIcon";
 import { TickIcon } from "../../assets/svg/TickIcon";
@@ -10,61 +10,118 @@ import {
 import "./Wallet.css";
 import {
   ExchangeRate,
-  getCurrentExchangeRate,
   updateExchangeRate,
 } from "../../actions/ExchangeRate/exchangeRate";
+import { removeWallet, setFavoriteWallet } from "../../actions/Wallet/wallet";
 
-import { useAsyncEffect } from "use-async-effect";
+interface Properties {
+  address: string;
+  old: boolean;
+  favorite: boolean;
+  dolarBalance: number;
+  euroBalance: number;
+  exchangeRates: ExchangeRate;
+  setExchangeRates: (value: ExchangeRate) => void;
+}
 
-export const Wallet = () => {
+export const Wallet = ({
+  address,
+  old,
+  dolarBalance,
+  euroBalance,
+  exchangeRates,
+  favorite,
+  setExchangeRates,
+}: Properties) => {
   const [currency, setCurrency] = useState<Currency>(
     Currencies.USD as Currency
   );
-  const [isOld, setIsOld] = useState(true);
   const [isEditMode, setEditMode] = useState(false);
-  const [exchangeRates, setExchangeRates] = useState<ExchangeRate>();
+  const [editValue, setEditValue] = useState<number>(
+    currency === Currencies.USD
+      ? exchangeRates.ETHToUSD
+      : exchangeRates.ETHToEuro
+  );
   const handleCancel = () => {
     setEditMode(false);
   };
   const handleSave = () => {
-    // updateExchangeRate({currency, amount: ACAAAAA PONER EL VALOR}); // TODO: TAKE FROM INPUT THE VALUE
+    updateExchangeRate(
+      currency === Currencies.USD
+        ? { ...exchangeRates, ETHToUSD: Number(editValue) }
+        : { ...exchangeRates, ETHToEuro: Number(editValue) }
+    );
+    if (currency === Currencies.USD) {
+      setExchangeRates({ ...exchangeRates, ETHToUSD: Number(editValue) });
+    } else if (currency === Currencies.EURO) {
+      setExchangeRates({ ...exchangeRates, ETHToEuro: Number(editValue) });
+    }
     setEditMode(false);
   };
   const handleEdit = () => {
     setEditMode(true);
+    setEditValue(
+      currency === Currencies.USD
+        ? exchangeRates?.ETHToUSD!
+        : exchangeRates?.ETHToEuro!
+    );
   };
-  useAsyncEffect(async () => {
-    const currentExchangeRate = { ETHToEuro: 1.23, ETHToUSD: 4 };
-    // const currentExchangeRate = await getCurrentExchangeRate(); // TODO: ABOVE LINE REPLACE THIS
-    setExchangeRates(currentExchangeRate);
-  }, [exchangeRates?.ETHToEuro, exchangeRates?.ETHToUSD]);
+
+  const handleFavorite = () => {
+    setFavoriteWallet(address);
+  };
+
+  const handleRemoveWallet = () => {
+    removeWallet(address);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditValue(Number(e.target.value));
+  };
   return (
     <div className="wallet-container">
-      {isOld && <div className="old-wallet">⚠ Wallet is old!</div>}
+      <div className="wallet-header">
+        <span>{`Address: ${address}`}</span>
+        <div className="buttons">
+          <button onClick={handleRemoveWallet}>Remove</button>
+          <button onClick={handleFavorite}>
+            {favorite ? "Remove Favorite" : "Add Favorite"}
+          </button>
+        </div>
+      </div>
+      {old && <div className="old-wallet">⚠ Wallet is old!</div>}
       <div className="wallet">
         <div className="exchange-rate">
           {!isEditMode && (
             <>
               <EditIcon onClick={handleEdit} />
-              <span className="exchange-rate-amount">{"1.32"}</span>
+              <span className="exchange-rate-amount">
+                {currency === Currencies.USD
+                  ? String(exchangeRates?.ETHToUSD)
+                  : String(exchangeRates?.ETHToEuro)}
+              </span>
             </>
           )}
           {isEditMode && (
             <>
               <div className="accept-cancel-icons">
                 <CrossIcon onClick={handleCancel} />
-                <TickIcon />
+                <TickIcon onClick={handleSave} />
               </div>
               <input
                 className="exchange-rate-amount"
-                value={currency === Currencies.USD ? 2 : 4}
+                type="number"
+                value={editValue}
+                onChange={handleChange}
               />
             </>
           )}
         </div>
         <div className="currency">
           <CurrencySelect currency={currency} setCurrency={setCurrency} />
-          <span className="total-balance">{"30 $"}</span>
+          <span className="total-balance">
+            {currency === Currencies.USD ? dolarBalance : euroBalance}
+          </span>
         </div>
       </div>
     </div>

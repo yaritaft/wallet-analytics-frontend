@@ -67,3 +67,19 @@
 .wallet-container .wallet .exchange-rate .exchange-rate-amount {
   margin: 0.5em;
 }
+
+.wallet-container {
+  margin: 2em 0;
+}
+
+.wallet-container .wallet-header {
+  display: flex;
+}
+
+.wallet-container .wallet-header .buttons {
+  margin-left: auto;
+}
+
+.wallet-container .wallet-header button {
+  margin: 0 0 0 1em;
+}

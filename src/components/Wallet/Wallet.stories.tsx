@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Wallet } from "./Wallet";
+import { Currencies, Currency } from "../CurrencySelect/CurrencySelect";
+import { ExchangeRate } from "../../actions/ExchangeRate/exchangeRate";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -14,6 +16,23 @@ export default {
 } as ComponentMeta<typeof Wallet>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Wallet> = (args) => <Wallet />;
+const Template: ComponentStory<typeof Wallet> = (args) => {
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRate>({
+    ETHToUSD: 222,
+    ETHToEuro: 333,
+  });
+
+  return (
+    <Wallet
+      address={"1234"}
+      dolarBalance={4444}
+      euroBalance={55555}
+      favorite={true}
+      old={true}
+      exchangeRates={exchangeRates}
+      setExchangeRates={setExchangeRates}
+    />
+  );
+};
 
 export const Primary = Template.bind({});

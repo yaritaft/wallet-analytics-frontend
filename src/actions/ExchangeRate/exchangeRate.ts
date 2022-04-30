@@ -3,23 +3,18 @@ import { ENVVARS } from "../../../envvars";
 import { getToken } from "../Login/login";
 
 export interface ExchangeRate {
-  ETHToUSD?: number | null;
-  ETHToEuro?: number | null;
-}
-
-export interface ExchangeRateUpdate {
-  currency: "USD" | "EURO";
-  amount: number | null;
+  ETHToUSD: number;
+  ETHToEuro: number;
 }
 
 export const updateExchangeRate = async (
-  exchangeRate: ExchangeRateUpdate
+  exchangeRate: ExchangeRate
 ): Promise<void> => {
   const token = getToken();
   if (token) {
     // SEND NULL to Wipe hardcoded exchange rate.
     await axios
-      .patch(ENVVARS.BACKEND_API + "/exchange-rate", exchangeRate, {
+      .patch(ENVVARS.BACKEND_API + "/exchange-rates", exchangeRate, {
         headers: { token },
       })
       .then((res) => {
@@ -33,9 +28,8 @@ export const getCurrentExchangeRate = async (): Promise<ExchangeRate> => {
   if (!token) {
     throw new Error("Invalid token.");
   }
-  // SEND NULL to Wipe hardcoded exchange rate.
   const exchangeRates = await axios
-    .get<ExchangeRate>(ENVVARS.BACKEND_API + "/exchange-rate", {
+    .get<ExchangeRate>(ENVVARS.BACKEND_API + "/exchange-rates", {
       headers: { token },
     })
     .then((res) => {

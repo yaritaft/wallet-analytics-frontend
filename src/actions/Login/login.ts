@@ -6,7 +6,7 @@ interface LoginPayload {
 }
 
 export interface Credentials {
-  user: string;
+  username: string;
   password: string;
 }
 
@@ -26,9 +26,23 @@ export const login = async (
   setError: (value: boolean) => void
 ): Promise<void> => {
   return await axios
-    .post<LoginPayload>(ENVVARS.BACKEND_API + "/login", credentials)
+    .post<string>(ENVVARS.BACKEND_API + "/login", credentials)
     .then((res) => {
-      storeToken(res.data.token);
+      storeToken(res.data);
+    })
+    .catch((error) => {
+      setError(true);
+    });
+};
+
+export const register = async (
+  credentials: Credentials,
+  setError: (value: boolean) => void
+): Promise<void> => {
+  return await axios
+    .post<string>(ENVVARS.BACKEND_API + "/register", credentials)
+    .then((res) => {
+      alert("Successfully registered.");
     })
     .catch((error) => {
       setError(true);
@@ -37,8 +51,15 @@ export const login = async (
 
 export const logout = async (): Promise<void> => {
   const token = getToken();
+  if (!token) {
+    throw new Error("No token stored.");
+  }
   await axios
-    .post<LoginPayload>(ENVVARS.BACKEND_API + "/logout", token)
+    .patch<LoginPayload>(
+      ENVVARS.BACKEND_API + "/logout",
+      {},
+      { headers: { token } }
+    )
     .then((res) => {
       eraseToken();
     })

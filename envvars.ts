@@ -1,1 +1,1 @@
-export const ENVVARS = { BACKEND_API: "http://localhost:8080/api" };
+export const ENVVARS = { BACKEND_API: "http://localhost:3000/api" };
