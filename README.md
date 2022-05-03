@@ -34,6 +34,22 @@ Use redux/vuex if necessary. Please note: You can add things to the design if re
 
 # Solution
 
+## Deployment link
+
+### Important
+
+Before trying to use the app you have to:
+
+1. Click the link below.
+
+https://dancing-eclair-807d38.netlify.app/
+
+2. Go to site settings
+   ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics/master/docs/iwBRO.png)
+3. Allow insecure content.
+   ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics/master/docs/VgkNP.png)
+4. Now you can use the app if you have the backend up and running locally. (doing docker-compose up)
+
 ## Design
 
 The design is two pages.
