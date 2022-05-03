@@ -3,8 +3,8 @@ import { customStylesCreateEventPopUp } from "./customStylesPopUp";
 import "./WalletMenu.css";
 import { Logout } from "../../components/Logout/Logout";
 import { WalletList } from "../../components/WalletList/WalletList";
-import { useState, useCallback } from "react";
 import { storeWallet } from "../../actions/Wallet/wallet";
+import { useWalletMenu } from "../../hooks/Wallet/uswWalletMenu";
 
 interface Properties {
   setToken: (value: string | null) => void;
@@ -16,14 +16,8 @@ const addWallet = async (wallet: string): Promise<void> => {
 };
 
 export const WalletMenu = ({ setToken }: Properties) => {
-  const [isOpenPopUp, setIsOpenPopUp] = useState(false);
-  const [newWallet, setNewWallet] = useState("");
-  const openModal = useCallback(() => {
-    setIsOpenPopUp(true);
-  }, [setIsOpenPopUp]);
-  const closeModal = useCallback(() => {
-    setIsOpenPopUp(false);
-  }, [setIsOpenPopUp]);
+  const { isOpenPopUp, closeModal, openModal, newWallet, setNewWallet } =
+    useWalletMenu();
 
   return (
     <div className="wallet-list">

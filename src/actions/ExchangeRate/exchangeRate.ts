@@ -12,7 +12,6 @@ export const updateExchangeRate = async (
 ): Promise<void> => {
   const token = getToken();
   if (token) {
-    // SEND NULL to Wipe hardcoded exchange rate.
     await axios
       .patch(ENVVARS.BACKEND_API + "/exchange-rates", exchangeRate, {
         headers: { token },
