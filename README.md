@@ -45,9 +45,9 @@ Before trying to use the app you have to:
 https://dancing-eclair-807d38.netlify.app/
 
 2. Go to site settings
-   ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics/master/docs/iwBRO.png)
+   ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics-frontend/master/docs/iwBRO.png)
 3. Allow insecure content.
-   ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics/master/docs/VgkNP.png)
+   ![](https://raw.githubusercontent.com/yaritaft/wallet-analytics-frontend/master/docs/VgkNP.png)
 4. Now you can use the app if you have the backend up and running locally. (doing docker-compose up)
 
 ## Design
