@@ -3,27 +3,27 @@ import { customStylesCreateEventPopUp } from "./customStylesPopUp";
 import "./WalletMenu.css";
 import { Logout } from "../../components/Logout/Logout";
 import { WalletList } from "../../components/WalletList/WalletList";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { storeWallet } from "../../actions/Wallet/wallet";
 
 interface Properties {
   setToken: (value: string | null) => void;
 }
 
+const addWallet = async (wallet: string): Promise<void> => {
+  storeWallet(wallet);
+  window.location.reload();
+};
+
 export const WalletMenu = ({ setToken }: Properties) => {
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
   const [newWallet, setNewWallet] = useState("");
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsOpenPopUp(true);
-  };
-  const closeModal = () => {
+  }, [setIsOpenPopUp]);
+  const closeModal = useCallback(() => {
     setIsOpenPopUp(false);
-  };
-
-  const addWallet = async (): Promise<void> => {
-    storeWallet(newWallet);
-    window.location.reload();
-  };
+  }, [setIsOpenPopUp]);
 
   return (
     <div className="wallet-list">
@@ -43,7 +43,7 @@ export const WalletMenu = ({ setToken }: Properties) => {
             />
             <div className="buttons">
               <button onClick={closeModal}>Cancel</button>
-              <button onClick={addWallet}>Save</button>
+              <button onClick={() => addWallet(newWallet)}>Save</button>
             </div>
           </div>
         </Popup>

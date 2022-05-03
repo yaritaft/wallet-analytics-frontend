@@ -1,18 +1,10 @@
-import { useState } from "react";
 import { CrossIcon } from "../../assets/svg/CrossIcon";
 import { EditIcon } from "../../assets/svg/EditIcon";
 import { TickIcon } from "../../assets/svg/TickIcon";
-import {
-  Currencies,
-  Currency,
-  CurrencySelect,
-} from "../CurrencySelect/CurrencySelect";
+import { Currencies, CurrencySelect } from "../CurrencySelect/CurrencySelect";
 import "./Wallet.css";
-import {
-  ExchangeRate,
-  updateExchangeRate,
-} from "../../actions/ExchangeRate/exchangeRate";
-import { removeWallet, setFavoriteWallet } from "../../actions/Wallet/wallet";
+import { ExchangeRate } from "../../actions/ExchangeRate/exchangeRate";
+import { useWallet } from "../../hooks/Wallet/useWallet";
 
 interface Properties {
   favoriteMode: boolean;
@@ -20,12 +12,12 @@ interface Properties {
   setDeletionMode: (value: boolean) => void;
   setFavoriteMode: (value: boolean) => void;
   address: string;
-  old: boolean;
+  setExchangeRates: (value: ExchangeRate) => void;
+  exchangeRates: ExchangeRate;
   favorite: boolean;
+  old: boolean;
   dolarBalance: number;
   euroBalance: number;
-  exchangeRates: ExchangeRate;
-  setExchangeRates: (value: ExchangeRate) => void;
 }
 
 export const Wallet = ({
@@ -41,58 +33,42 @@ export const Wallet = ({
   favorite,
   setExchangeRates,
 }: Properties) => {
-  const [currency, setCurrency] = useState<Currency>(
-    Currencies.USD as Currency
-  );
-  const [isEditMode, setEditMode] = useState(false);
-  const [editValue, setEditValue] = useState<number>(
-    currency === Currencies.USD
-      ? exchangeRates.ETHToUSD
-      : exchangeRates.ETHToEuro
-  );
-  const handleCancel = () => {
-    setEditMode(false);
-  };
-  const handleSave = () => {
-    updateExchangeRate(
-      currency === Currencies.USD
-        ? { ...exchangeRates, ETHToUSD: Number(editValue) }
-        : { ...exchangeRates, ETHToEuro: Number(editValue) }
-    );
-    if (currency === Currencies.USD) {
-      setExchangeRates({ ...exchangeRates, ETHToUSD: Number(editValue) });
-    } else if (currency === Currencies.EURO) {
-      setExchangeRates({ ...exchangeRates, ETHToEuro: Number(editValue) });
-    }
-    setEditMode(false);
-  };
-  const handleEdit = () => {
-    setEditMode(true);
-    setEditValue(
-      currency === Currencies.USD
-        ? exchangeRates?.ETHToUSD!
-        : exchangeRates?.ETHToEuro!
-    );
-  };
-
-  const handleFavorite = () => {
-    setFavoriteWallet(address).then(() => setFavoriteMode(!favoriteMode));
-  };
-
-  const handleRemoveWallet = () => {
-    removeWallet(address).then(() => setDeletionMode(!deletionMode));
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditValue(Number(e.target.value));
-  };
+  const {
+    handleRemoveWallet,
+    handleFavorite,
+    handleEdit,
+    handleCancel,
+    handleSave,
+    handleChange,
+    isEditMode,
+    editValue,
+    currency,
+    setCurrency,
+  } = useWallet({
+    favoriteMode,
+    deletionMode,
+    setDeletionMode,
+    setFavoriteMode,
+    address,
+    setExchangeRates,
+    exchangeRates,
+  });
   return (
     <div className="wallet-container">
       <div className="wallet-header">
         <span>{`Address: ${address}`}</span>
         <div className="buttons">
-          <button onClick={handleRemoveWallet}>✖</button>
-          <button onClick={handleFavorite}>{favorite ? "★" : "☆"}</button>
+          <div style={{ color: "red" }}>
+            <button className={"cross"} onClick={handleRemoveWallet}>
+              ✖
+            </button>
+          </div>
+          <button
+            className={favorite ? "is-favorite" : undefined}
+            onClick={handleFavorite}
+          >
+            {favorite ? "★" : "☆"}
+          </button>
         </div>
       </div>
       {old && <div className="old-wallet">⚠ Wallet is old!</div>}

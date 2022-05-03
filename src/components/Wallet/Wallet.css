@@ -1,7 +1,4 @@
 .wallet {
-}
-
-.wallet {
   display: flex;
   gap: 1em;
 }
@@ -29,7 +26,7 @@
 .wallet .exchange-rate .accept-cancel-icons {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 0.1em 0;
 }
 
@@ -78,6 +75,20 @@
 
 .wallet-container .wallet-header .buttons {
   margin-left: auto;
+}
+
+.wallet-container .wallet-header .buttons {
+  margin-left: auto;
+}
+
+.wallet-container .wallet-header .buttons .cross {
+  color: red;
+  border: solid 2px black;
+}
+
+.wallet-container .wallet-header .buttons .is-favorite {
+  color: rgb(171, 171, 0);
+  border: solid 2px black;
 }
 
 .wallet-container .wallet-header button {

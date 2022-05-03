@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { logout } from "../../actions/Login/login";
 
 interface Properties {
@@ -5,7 +6,10 @@ interface Properties {
 }
 
 export const Logout = ({ setToken }: Properties) => {
-  const handleLogout = async () => await logout().then(() => setToken(null));
+  const handleLogout = useCallback(
+    async () => await logout().then(() => setToken(null)),
+    [setToken]
+  );
   return (
     <button className="logout" onClick={handleLogout}>
       Logout

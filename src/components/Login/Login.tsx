@@ -1,5 +1,4 @@
-import { useCallback, useState } from "react";
-import { Credentials, login, register } from "../../actions/Login/login";
+import { useLoginRegister } from "../../hooks/Login/useLoginRegister";
 import "./Login.css";
 
 interface Properties {
@@ -7,36 +6,15 @@ interface Properties {
 }
 
 export const Login = ({ setToken }: Properties) => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const handleSubmit = useCallback(() => {
-    login({ username: user, password }, setError).then((token) => {
-      if (token) {
-        setToken(token);
-      }
-    });
-
-    // TODO: REDIRECT TO WALLETS LANDING PAGE
-  }, [user, password, setError]);
-
-  const handleRegister = useCallback(() => {
-    register({ username: user, password }, setError);
-    // TODO: REDIRECT TO WALLETS LANDING PAGE
-  }, [user, password, setError]);
-
-  const handleUserChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setUser(e.target.value);
-    },
-    [user]
-  );
-  const handlePasswordChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
-    },
-    [password]
-  );
+  const {
+    error,
+    handleUserChange,
+    handlePasswordChange,
+    handleRegister,
+    handleSubmit,
+    user,
+    password,
+  } = useLoginRegister(setToken);
   return (
     <div className="login">
       <div className="form">
