@@ -103,6 +103,5 @@ npm run storybook
 - It would be nice to have a mono repo to share domain models since we are using Typescript end to end.
 - JSON Schema validators could have been used to improve error handling related to invalid requests. I.E using Yup.
 - Unit and integration testing to be able to test the app without the UI. Using jest, react testing library and cypress.
-- The styling can be improved by using more colors and more svgs.
 - A loading animation would be good when we wait for updates in the wallets. Since the get wallets endpoints has to do a lot of request to gather all the information needed.
 - Styled components can help a lot by providing css in js and avoiding css files. It also provides conditional styling to avoid complex class name assignments.
