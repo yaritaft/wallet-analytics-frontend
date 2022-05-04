@@ -105,5 +105,4 @@ npm run storybook
 - Unit and integration testing to be able to test the app without the UI. Using jest, react testing library and cypress.
 - The styling can be improved by using more colors and more svgs.
 - A loading animation would be good when we wait for updates in the wallets. Since the get wallets endpoints has to do a lot of request to gather all the information needed.
-- A lot of logic can be separated from components by using custom hooks to preserve the distinction between visual ui and behavior.
 - Styled components can help a lot by providing css in js and avoiding css files. It also provides conditional styling to avoid complex class name assignments.
